@@ -451,7 +451,7 @@ window.Game = (function () {
             }));
             return;
           }
-          message = 'Вы победили Газебо!\nУра!';
+          message = 'Вы победили Людмурика!\nУра!';
           break;
         case Verdict.FAIL:
           message = 'Вы проиграли!';
