@@ -15,9 +15,9 @@ var TOP_GAP_NAME = 260; // отступ сверху для имени
 var TOP_GAP_SEC = 90; // отступ сверху для милисекунд
 var HIST_MAX_HEIGHT = 130;
 
-var arrayMax = function(a) {
+var arrayMax = function (a) {
   var result = -1;
-  for (i = 0; i < a.length; i++) {
+  for (var i = 0; i < a.length; i++) {
     if (a[i] > result) {
       result = a[i];
     }
