@@ -15,6 +15,15 @@ var TOP_GAP_NAME = 260; // отступ сверху для имени
 var TOP_GAP_SEC = 90; // отступ сверху для милисекунд
 var HIST_MAX_HEIGHT = 130;
 
+var arrayMax = function(a) {
+  var result = -1;
+  for (i = 0; i < a.length; i++) {
+    if (a[i] > result) {
+      result = a[i];
+    }
+  }
+  return result;
+};
 
 window.renderStatistics = function (ctx, names, times) {
 
@@ -39,13 +48,7 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Список результатов:', TEXT_GAP_LEFT, TEXT_LINE2);
 
   // вычисление миллисекунд
-  var maxTime = -1;
-  for (i = 0; i < times.length; i++) {
-    if (times[i] > maxTime) {
-      maxTime = times[i];
-    }
-  }
-
+  var maxTime = arrayMax(times);
   var ms2px = HIST_MAX_HEIGHT / maxTime;
 
   // вычисление имен
