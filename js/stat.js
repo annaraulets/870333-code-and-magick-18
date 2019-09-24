@@ -70,7 +70,7 @@ window.renderStatistics = function (ctx, names, times) {
 
     // пишем миллисекунды
     ctx.fillStyle = '#000';
-    ctx.fillText(Math.round(times[i]), HIST_X + i * HIST_OFFSET, HIST_Y + extraVerticalGap);
+    ctx.fillText(Math.round(times[i]), HIST_X + (i * HIST_OFFSET), HIST_Y + extraVerticalGap);
 
     // Рандом столбиков
     if (names[i] === 'Вы') {
@@ -80,10 +80,10 @@ window.renderStatistics = function (ctx, names, times) {
     }
 
     // столбики
-    ctx.fillRect(HIST_X + i * HIST_OFFSET, BAR_START_Y + extraVerticalGap, BAR_WIDTH, barHeight);
+    ctx.fillRect(HIST_X + (i * HIST_OFFSET), BAR_START_Y + extraVerticalGap, BAR_WIDTH, barHeight);
 
     // пишем имена
     ctx.fillStyle = '#000';
-    ctx.fillText(names[i], HIST_X + i * HIST_OFFSET, HIST_NAMES_Y);
+    ctx.fillText(names[i], HIST_X + (i * HIST_OFFSET), HIST_NAMES_Y);
   }
 };
