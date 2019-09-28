@@ -1,9 +1,9 @@
 'use strict';
 
 // Функция которая возвращает рандомный элемент из массива
-var randomElement = function (a) {
-  var i = Math.floor(Math.random() * a.length);
-  return a[i];
+var randomElement = function (array) {
+  var randomNumber = Math.floor(Math.random() * array.length);
+  return array[randomNumber];
 };
 
 // Массивы
@@ -23,12 +23,21 @@ var randomWizard = function () {
 };
 
 // Функция создает массив Визардов
-var createWizardsData = function () {
-  return [
-    randomWizard(),
-    randomWizard(),
-    randomWizard(),
-    randomWizard()];
+// var createWizardsData = function () {
+//   return [
+//     randomWizard(),
+//     randomWizard(),
+//     randomWizard(),
+//     randomWizard()];
+// };
+var createWizardsData = function (wizardsCount) {
+  var result = [];
+
+  for (var i = 0; i < wizardsCount; i++) {
+    result.push(randomWizard());
+  }
+
+  return result;
 };
 
 // Функция принимает JS-обьект с Визардом и возвращает в DOM-элемент (html)
@@ -63,7 +72,7 @@ var userDialog = document.querySelector('.setup');
 userDialog.classList.remove('hidden');
 
 // Главная программа. createWizardsData() - возвращает массив визардов, сразу передаем его в displayWizards для отображения
-displayWizards(createWizardsData());
+displayWizards(createWizardsData(4));
 
 document.querySelector('.setup-similar').classList.remove('hidden');
 
