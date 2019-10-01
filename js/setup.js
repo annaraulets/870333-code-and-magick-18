@@ -1,20 +1,20 @@
 'use strict';
 
 // Функция которая возвращает рандомный элемент из массива(пригодится)
-// var randomElement = function (array) {
-//   var randomNumber = Math.floor(Math.random() * array.length);
-//   return array[randomNumber];
-// };
-
-// Рандомный элемент и удаление из массива
 var randomElement = function (array) {
   var randomNumber = Math.floor(Math.random() * array.length);
-
-  var result = array[randomNumber];
-  array[randomNumber] = array[array.length - 1];
-  array.pop();
-  return result;
+  return array[randomNumber];
 };
+
+// Рандомный элемент и удаление из массива
+// var randomElement = function (array) {
+//   var randomNumber = Math.floor(Math.random() * array.length);
+
+//   var result = array[randomNumber];
+//   array[randomNumber] = array[array.length - 1];
+//   array.pop();
+//   return result;
+// };
 
 
 // Массивы
