@@ -83,21 +83,21 @@ document.querySelector('.setup-similar').classList.remove('hidden');
 
 // Задание 7
 // 1. Открытие и закрытие модалки .setup
-const ENTER = 13;
-const ESC = 27;
+var ENTER = 13;
+var ESC = 27;
 
 var popup = document.querySelector('.setup');
 var openPopupButton = document.querySelector('.setup-open');
 var closePopupButton = popup.querySelector('.setup-close');
 var userNameInput = popup.querySelector('.setup-user-name');
 var savePopupButton = popup.querySelector('.setup-submit');
-var popupWizardForm = popup.querySelector('.setup-wizard-form')
+var popupWizardForm = popup.querySelector('.setup-wizard-form');
 var setupWizardCoat = popup.querySelector('.setup-wizard .wizard-coat');
 var setupWizardEye = popup.querySelector('.setup-wizard .wizard-eyes');
 var setupWizardFireball = popup.querySelector('.setup-fireball-wrap');
 
 var popupOpenClickHandler = function () {
-   popup.classList.remove('hidden');
+  popup.classList.remove('hidden');
 };
 
 var popupCloseClickHandler = function () {
@@ -107,7 +107,7 @@ var popupCloseClickHandler = function () {
 openPopupButton.addEventListener('click', popupOpenClickHandler);
 closePopupButton.addEventListener('click', popupCloseClickHandler);
 
-openPopupButton.addEventListener('keydown', function(evt) {
+openPopupButton.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER) {
     popupOpenClickHandler();
   }
@@ -122,15 +122,15 @@ document.addEventListener('keydown', function (evt) {
 });
 
 // Закрытие модалки через Enter если наведено по Tab
-closePopupButton.addEventListener('keydown', function(evt) {
-  if (evt.keyCode == ENTER) {
+closePopupButton.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER) {
     popupCloseClickHandler();
   }
 });
 
 // Фокус на кнопке -сохранить- Enter-отправляет форму
-savePopupButton.addEventListener('keydown', function(evt) {
-  if (evt.keyCode == ENTER) {
+savePopupButton.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER) {
     popupWizardForm.submit();
   }
 });
@@ -144,7 +144,7 @@ setupWizardCoat.addEventListener('click', function () {
 
 // Изменение цвета глаз у Визарда
 setupWizardEye.addEventListener('click', function () {
-  var color = randomElement(eyesColors)
+  var color = randomElement(eyesColors);
   setupWizardEye.style.fill = color;
   popup.querySelector('input[name="eyes-color"]').value = color;
 });
