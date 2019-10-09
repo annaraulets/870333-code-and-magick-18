@@ -81,8 +81,6 @@ displayWizards(createWizardsData(4));
 
 document.querySelector('.setup-similar').classList.remove('hidden');
 
-
-
 // Задание 7
 // 1. Открытие и закрытие модалки .setup
 const ENTER = 13;
@@ -157,21 +155,3 @@ setupWizardFireball.addEventListener('click', function () {
   setupWizardFireball.style.backgroundColor = color;
   setupWizardFireball.querySelector('input[name="fireball-color"]').value = color;
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
