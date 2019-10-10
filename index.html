@@ -63,13 +63,14 @@
   <div class="demo"></div>
 
   <div class="setup-open">
-    <img src="./img/user-1.jpg" class="setup-open-icon">
+    <img src="./img/user-1.jpg" class="setup-open-icon" tabindex="1">
   </div>
 </header>
 
 <div class="overlay setup hidden">
   <form class="setup-wizard-form"
         method="post"
+        action="https://js.dump.academy/code-and-magick"
         enctype="multipart/form-data"
         autocomplete="off">
 
@@ -82,11 +83,11 @@
         <label>
           <input type="text" name="username"
                  maxlength="25" required
-                 class="setup-user-name" value="Синий Пендальф"/>
+                 class="setup-user-name" value="Синий Пендальф" minlength="2" maxlength="25" required tabindex="2" />
         </label>
       </div>
 
-      <span class="setup-close">&times;</span>
+      <span class="setup-close" tabindex="3">&times;</span>
     </div>
 
 
@@ -161,8 +162,7 @@
 </div>
 
 <footer>
-  <p><a href="http://htmlacademy.ru" class="footer-link"><img src="img/htmlacademy-logo.png" alt="HTML Academy"
-                                                              width="130">Сделано в HTML Academy</a>в 2017 году</p>
+  <p><a href="http://htmlacademy.ru" class="footer-link"><img src="img/htmlacademy-logo.png" alt="HTML Academy" width="130">Сделано в HTML Academy</a>в 2017 году</p>
 </footer>
 
 <template id="similar-wizard-template" style="display: none">
@@ -215,6 +215,5 @@
 <script src="js/stat.js"></script>
 <script src="js/setup.js"></script>
 <script src="js/game.js"></script>
-
 </body>
 </html>

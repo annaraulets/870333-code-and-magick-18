@@ -23,6 +23,7 @@ var wizardSurnames = ['да Марья', 'Верон', 'Мирабелла', 'В
 var coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)',
   'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
+var fireballColors = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
 // Функция которая возвращает рандомного Визарда
 var randomWizard = function () {
@@ -72,12 +73,85 @@ var displayWizards = function (wizardsData) {
 };
 
 // Убираем класс hidden у html-элемента
-var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
+// var userDialog = document.querySelector('.setup');
+// userDialog.classList.remove('hidden');
 
 // Главная программа. createWizardsData() - возвращает массив визардов, сразу передаем его в displayWizards для отображения
 displayWizards(createWizardsData(4));
 
 document.querySelector('.setup-similar').classList.remove('hidden');
 
+// Задание 7
+// 1. Открытие и закрытие модалки .setup
+var ENTER_KEYCODE = 13;
+var ESC_KEYCODE = 27;
 
+var popup = document.querySelector('.setup');
+var openPopupButton = document.querySelector('.setup-open');
+var closePopupButton = popup.querySelector('.setup-close');
+var userNameInput = popup.querySelector('.setup-user-name');
+var savePopupButton = popup.querySelector('.setup-submit');
+var popupWizardForm = popup.querySelector('.setup-wizard-form');
+var setupWizardCoat = popup.querySelector('.setup-wizard .wizard-coat');
+var setupWizardEye = popup.querySelector('.setup-wizard .wizard-eyes');
+var setupWizardFireball = popup.querySelector('.setup-fireball-wrap');
+
+var popupOpenClickHandler = function () {
+  popup.classList.remove('hidden');
+};
+
+var popupCloseClickHandler = function () {
+  popup.classList.add('hidden');
+};
+
+openPopupButton.addEventListener('click', popupOpenClickHandler);
+closePopupButton.addEventListener('click', popupCloseClickHandler);
+
+openPopupButton.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    popupOpenClickHandler();
+  }
+});
+
+document.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    if (userNameInput !== document.activeElement) {
+      popupCloseClickHandler();
+    }
+  }
+});
+
+// Закрытие модалки через Enter если наведено по Tab
+closePopupButton.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    popupCloseClickHandler();
+  }
+});
+
+// Фокус на кнопке -сохранить- Enter-отправляет форму
+savePopupButton.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    popupWizardForm.submit();
+  }
+});
+
+// Изменение цвета мантии у Визарда
+setupWizardCoat.addEventListener('click', function () {
+  var color = randomElement(coatColors);
+  setupWizardCoat.style.fill = color;
+  popup.querySelector('input[name="coat-color"]').value = color;
+});
+
+// Изменение цвета глаз у Визарда
+setupWizardEye.addEventListener('click', function () {
+  var color = randomElement(eyesColors);
+  setupWizardEye.style.fill = color;
+  popup.querySelector('input[name="eyes-color"]').value = color;
+});
+
+// Изменение цвета фаербола у Визарда
+setupWizardFireball.addEventListener('click', function () {
+  var color = randomElement(fireballColors);
+  setupWizardFireball.style.backgroundColor = color;
+  setupWizardFireball.querySelector('input[name="fireball-color"]').value = color;
+});
