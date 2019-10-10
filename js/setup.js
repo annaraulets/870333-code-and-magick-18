@@ -83,8 +83,8 @@ document.querySelector('.setup-similar').classList.remove('hidden');
 
 // Задание 7
 // 1. Открытие и закрытие модалки .setup
-var ENTER = 13;
-var ESC = 27;
+var ENTER_KEYCODE = 13;
+var ESC_KEYCODE = 27;
 
 var popup = document.querySelector('.setup');
 var openPopupButton = document.querySelector('.setup-open');
@@ -108,13 +108,13 @@ openPopupButton.addEventListener('click', popupOpenClickHandler);
 closePopupButton.addEventListener('click', popupCloseClickHandler);
 
 openPopupButton.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER) {
+  if (evt.keyCode === ENTER_KEYCODE) {
     popupOpenClickHandler();
   }
 });
 
 document.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ESC) {
+  if (evt.keyCode === ESC_KEYCODE) {
     if (userNameInput !== document.activeElement) {
       popupCloseClickHandler();
     }
@@ -123,14 +123,14 @@ document.addEventListener('keydown', function (evt) {
 
 // Закрытие модалки через Enter если наведено по Tab
 closePopupButton.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER) {
+  if (evt.keyCode === ENTER_KEYCODE) {
     popupCloseClickHandler();
   }
 });
 
 // Фокус на кнопке -сохранить- Enter-отправляет форму
 savePopupButton.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER) {
+  if (evt.keyCode === ENTER_KEYCODE) {
     popupWizardForm.submit();
   }
 });
