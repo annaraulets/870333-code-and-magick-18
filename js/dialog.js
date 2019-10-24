@@ -45,6 +45,20 @@
       popupWizardForm.submit();
     });
   });
+
+  popupWizardForm.addEventListener('submit', function (evt) {
+    window.backend.save(
+        new FormData(popupWizardForm),
+        popupCloseClickHandler,
+        function (error) {
+          var errorBlock = document.querySelector('#error-template').content.querySelector('.error');
+          var errorCopy = errorBlock.cloneNode(true);
+
+          errorCopy.querySelector('.error-text').textContent = error;
+          document.querySelector('body').appendChild(errorCopy);
+        });
+    evt.preventDefault();
+  });
 })();
 
 

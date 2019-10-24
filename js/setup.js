@@ -7,33 +7,56 @@
     return array[randomNumber];
   };
 
+  // Рандомный элемент и удаление из массива
+  var randomElementAndRemove = function (array) {
+    var randomNumber = Math.floor(Math.random() * array.length);
+    var result = array[randomNumber];
+
+    array.splice(randomNumber, 1);
+
+    return result;
+  };
+
+
+  // Рандомный состав массива из массивов
+  var randomArray = function (array, resultLength) {
+    var arrayCopy = array.slice();
+
+    var result = [];
+    for (var i = 0; i < resultLength; i++) {
+      var x = randomElementAndRemove(arrayCopy); // результат вызова ф-ции, которая достает рандомный элемент и удаляет его из массива
+      result.push(x);
+    }
+    return result;
+  };
+
   // Массивы
-  var wizardNames = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-  var wizardSurnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+  // var wizardNames = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
+  // var wizardSurnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
   var coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)',
     'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
   var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
   var fireballColors = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
   // Функция которая возвращает рандомного Визарда
-  var randomWizard = function () {
-    return {
-      name: randomElement(wizardNames) + ' ' + randomElement(wizardSurnames),
-      coatColor: randomElement(coatColors),
-      eyesColor: randomElement(eyesColors)
-    };
-  };
+  // var randomWizard = function () {
+  //   return {
+  //     name: randomElement(wizardNames) + ' ' + randomElement(wizardSurnames),
+  //     coatColor: randomElement(coatColors),
+  //     eyesColor: randomElement(eyesColors)
+  //   };
+  // };
 
   // Функция создает массив Визардов
-  var createWizardsData = function (wizardsCount) {
-    var result = [];
+  // var createWizardsData = function (wizardsCount) {
+  //   var result = [];
 
-    for (var i = 0; i < wizardsCount; i++) {
-      result.push(randomWizard());
-    }
+  //   for (var i = 0; i < wizardsCount; i++) {
+  //     result.push(randomWizard());
+  //   }
 
-    return result;
-  };
+  //   return result;
+  // };
 
   // Функция принимает JS-обьект с Визардом и возвращает в DOM-элемент (html)
   var renderWizard = function (wizardData) {
@@ -43,8 +66,8 @@
 
     var wizardElement = similarWizardTemplate.cloneNode(true);
     wizardElement.querySelector('.setup-similar-label').textContent = wizardData.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizardData.coatColor;
-    wizardElement.querySelector('.wizard-eyes').style.fill = wizardData.eyesColor;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizardData.colorCoat;
+    wizardElement.querySelector('.wizard-eyes').style.fill = wizardData.colorEyes;
 
     return wizardElement;
   };
@@ -63,7 +86,10 @@
   };
 
   // Главная программа. createWizardsData() - возвращает массив визардов, сразу передаем его в displayWizards для отображения
-  displayWizards(createWizardsData(4));
+  // displayWizards(createWizardsData(4));
+  window.backend.load(function (wizards) {
+    displayWizards(randomArray(wizards, 4));
+  });
 
   document.querySelector('.setup-similar').classList.remove('hidden');
 
