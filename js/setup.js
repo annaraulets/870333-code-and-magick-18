@@ -8,27 +8,27 @@
   };
 
   // Рандомный элемент и удаление из массива
-  var randomElementAndRemove = function (array) {
-    var randomNumber = Math.floor(Math.random() * array.length);
-    var result = array[randomNumber];
+  // var randomElementAndRemove = function (array) {
+  //   var randomNumber = Math.floor(Math.random() * array.length);
+  //   var result = array[randomNumber];
 
-    array.splice(randomNumber, 1);
+  //   array.splice(randomNumber, 1);
 
-    return result;
-  };
+  //   return result;
+  // };
 
 
   // Рандомный состав массива из массивов
-  var randomArray = function (array, resultLength) {
-    var arrayCopy = array.slice();
+  // var randomArray = function (array, resultLength) {
+  //   var arrayCopy = array.slice();
 
-    var result = [];
-    for (var i = 0; i < resultLength; i++) {
-      var x = randomElementAndRemove(arrayCopy); // результат вызова ф-ции, которая достает рандомный элемент и удаляет его из массива
-      result.push(x);
-    }
-    return result;
-  };
+  //   var result = [];
+  //   for (var i = 0; i < resultLength; i++) {
+  //     var x = randomElementAndRemove(arrayCopy); // результат вызова ф-ции, которая достает рандомный элемент и удаляет его из массива
+  //     result.push(x);
+  //   }
+  //   return result;
+  // };
 
   // Массивы
   // var wizardNames = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
@@ -82,14 +82,66 @@
     }
 
     var similarListElement = document.querySelector('.setup-similar-list');
+    similarListElement.querySelectorAll('.setup-similar-item').forEach(function (element) {
+      element.remove();
+    });
     similarListElement.appendChild(fragment);
+  };
+
+  var DEBOUNCE_INTERVAL = 500; // ms
+  var debounce = function (cb) {
+    var lastTimeout = null;
+
+    return function () {
+      var parameters = arguments;
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout(function () {
+        cb.apply(null, parameters);
+      }, DEBOUNCE_INTERVAL);
+    };
   };
 
   // Главная программа. createWizardsData() - возвращает массив визардов, сразу передаем его в displayWizards для отображения
   // displayWizards(createWizardsData(4));
-  window.backend.load(function (wizards) {
-    displayWizards(randomArray(wizards, 4));
-  });
+  var reloadSimilarWizardsInstant = function () {
+    window.backend.load(function (wizards) {
+      var nowColorCoat = setupWizardCoat.style.fill;
+      var nowColorEyes = setupWizardEye.style.fill || 'black';
+
+      var sameCoatAndEyesWizard = wizards.filter(function (it) {
+        return it.colorCoat === nowColorCoat &&
+          it.colorEyes === nowColorEyes;
+      });
+
+      var sameCoatNoEyes = wizards.filter(function (it) {
+        return it.colorCoat === nowColorCoat &&
+          it.colorEyes !== nowColorEyes;
+      });
+
+      var sameEyesNoCoat = wizards.filter(function (it) {
+        return it.colorEyes === nowColorEyes &&
+          it.colorCoat !== nowColorCoat;
+      });
+
+      var noCoatNoEyes = wizards.filter(function (it) {
+        return it.colorCoat !== nowColorCoat &&
+          it.colorEyes !== nowColorEyes;
+      });
+
+      var result = []
+        .concat(sameCoatAndEyesWizard)
+        .concat(sameCoatNoEyes)
+        .concat(sameEyesNoCoat)
+        .concat(noCoatNoEyes)
+        .slice(0, 4);
+
+      displayWizards(result);
+    });
+  };
+  reloadSimilarWizardsInstant();
+  var reloadSimilarWizards = debounce(reloadSimilarWizardsInstant);
 
   document.querySelector('.setup-similar').classList.remove('hidden');
 
@@ -97,11 +149,13 @@
   var setupWizardCoat = popup.querySelector('.setup-wizard .wizard-coat');
   var setupWizardEye = popup.querySelector('.setup-wizard .wizard-eyes');
   var setupWizardFireball = popup.querySelector('.setup-fireball-wrap');
+
   // Изменение цвета мантии у Визарда
   setupWizardCoat.addEventListener('click', function () {
     var color = randomElement(coatColors);
     setupWizardCoat.style.fill = color;
     popup.querySelector('input[name="coat-color"]').value = color;
+    reloadSimilarWizards();
   });
 
   // Изменение цвета глаз у Визарда
@@ -109,6 +163,7 @@
     var color = randomElement(eyesColors);
     setupWizardEye.style.fill = color;
     popup.querySelector('input[name="eyes-color"]').value = color;
+    reloadSimilarWizards();
   });
 
   // Изменение цвета фаербола у Визарда
